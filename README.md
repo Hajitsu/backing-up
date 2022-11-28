@@ -29,5 +29,16 @@ BOT_ID=XXXXXXXX
 CHAT_ID=XXXXXXX
 ```
 
+# Define cronjob
+For creating a backup every X time, like every day or every hour, use the following command:
+```
+crontab -e
+```
+Then use [Crontab Guru](https://crontab.guru) to create a cronjob, then complete the cronjob as below:
+```
+14 */24 * * * sh /PATH_TO_YOUR_SCRIPT/git-backup.sh>>/PATH_TO_YOUR_LOG_FILE/log.log
+```
+This cronjob runs at 00:14 every day.
+
 # Recommendation
 to start the API, you can use [PM2](https://pm2.keymetrics.io) by `pm2 start app.js` command.
