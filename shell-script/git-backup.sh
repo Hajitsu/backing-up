@@ -1,7 +1,7 @@
 #! /bin/bash
 
 # reading configurations
-. .git-backup.config
+. ./.git-backup.config
 
 gitlab-rake gitlab:backup:create
 cp /var/opt/gitlab/backups/*gitlab_backup.tar $destination_share
