@@ -1,4 +1,4 @@
-# BackUp From Everything With #BashScript
+# BackUp From Everything With #ShellScript
 
 **Story of the project**
 
