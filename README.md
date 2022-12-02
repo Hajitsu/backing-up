@@ -36,7 +36,7 @@ crontab -e
 ```
 Then use [Crontab Guru](https://crontab.guru) to create a cronjob, then complete the cronjob as below:
 ```
-14 */24 * * * /bin/bash /PATH_TO_YOUR_SCRIPT/git-backup.sh>>/PATH_TO_YOUR_LOG_FILE/log.log
+14 0 * * * /bin/bash /PATH_TO_YOUR_SCRIPT/git-backup.sh>>/PATH_TO_YOUR_LOG_FILE/log.log
 ```
 This cronjob runs at 00:14 every day.
 
