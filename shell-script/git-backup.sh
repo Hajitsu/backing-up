@@ -16,7 +16,7 @@ echo `date +"%Y-%m-%d %T"`: $api_url
 echo "**************"
 
 echo `date +"%Y-%m-%d %T"`: creating backup
-gitlab-rake gitlab:backup:create
+#gitlab-rake gitlab:backup:create
 
 echo "**************"
 
@@ -24,23 +24,30 @@ echo `date +"%Y-%m-%d %T"`: start copy file to share
 cp /var/opt/gitlab/backups/*gitlab_backup.tar $destination_share
 echo "**************"
 echo `date +"%Y-%m-%d %T"`: start copy file to temp
-mv /var/opt/gitlab/backups/*gitlab_backup.tar $temp_path
+#mv /var/opt/gitlab/backups/*gitlab_backup.tar $temp_path
 file_path=$(ls $temp_path/*gitlab_backup.tar | head -1)
 echo `date +"%Y-%m-%d %T"`: $file_path
 chown root:root $file_path
 chmod +x $file_path
 
-zip_file_path=$temp_path/$(date '+%Y-%m-%d').zip
+today=$(date '+%Y-%m-%d')
+
+zip_file_path=$temp_path/$today.zip
 echo "**************"
 echo `date +"%Y-%m-%d %T"`: start zip and seperate file to $seperate_size
-zip -s $seperate_size $zip_file_path $file_path
-rm $zip_file_path
+#zip -s $seperate_size $zip_file_path $file_path
+#rm $zip_file_path
 echo `date +"%Y-%m-%d %T"`: remove $zip_file_path
-rm $file_path
+#rm $file_path
 echo `date +"%Y-%m-%d %T"`: remove $file_path
 
 echo "**************"
 echo `date +"%Y-%m-%d %T"`: start uploading to telegram  channel...
+
+
+curl -X POST -d '{"message": "'$today'"}' \
+	-H "Content-type: application/json" \
+	$api_url/git-send-message
 
 while true
 do
@@ -52,7 +59,7 @@ do
 						--output /dev/null --silent --write-out %{http_code} \
 						-X POST \
 						--form file=@$file \
-						$api_url)
+						$api_url/git-upload-file)
 		echo `date +"%Y-%m-%d %T"`: status code: $status_code
 		if [ "$status_code" = "200" ];
 		then
